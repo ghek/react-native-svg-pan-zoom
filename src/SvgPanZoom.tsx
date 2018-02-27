@@ -40,6 +40,7 @@ export interface Props {
   canvasWidth?: number,
   canvasStyle?: ViewStyle,
   viewStyle?: ViewStyle,
+  extendLimitPercentage?: number,
   onZoom?: (zoom: number) => void
 }
 
@@ -416,7 +417,8 @@ export default class SvgPanZoom extends Component<Props, State> {
 
     const {
       canvasWidth,
-      canvasHeight
+      canvasHeight,
+      extendLimitPercentage
     } = this.props
 
     /*gestureState holds total displacement since pan started. 
@@ -434,7 +436,8 @@ export default class SvgPanZoom extends Component<Props, State> {
       viewTransformMult(viewTransform, tranlationMatrix),
       viewDimensions,
       canvasWidth,
-      canvasHeight
+      canvasHeight,
+      extendLimitPercentage,
     );
 
     Animated.timing(this.state.TranslationAnimation, {

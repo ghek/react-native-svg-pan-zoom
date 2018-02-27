@@ -13,6 +13,7 @@ export interface Props {
     canvasWidth?: number;
     canvasStyle?: ViewStyle;
     viewStyle?: ViewStyle;
+    extendLimitPercentage?: number;
     onZoom?: (zoom: number) => void;
 }
 export interface State {

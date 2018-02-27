@@ -17,4 +17,4 @@ export declare function createTranslationMatrix(translateX: number, translateY: 
 export declare function createScalingMatrix(scale: number): ViewTransform;
 export declare function viewTransformMult(vtA: ViewTransform, vtB: ViewTransform): ViewTransform;
 export declare function getBoundedPinchTransform(oldTransform: ViewTransform, newTransform: ViewTransform, minScale: number, maxScale: number): ViewTransform;
-export declare function getBoundedTouchTransform(initialTransform: ViewTransform, oldTransform: ViewTransform, newTransform: ViewTransform, viewDim: ViewDimensions, canvasWidth: number, canvasHeight: number): ViewTransform;
+export declare function getBoundedTouchTransform(initialTransform: ViewTransform, oldTransform: ViewTransform, newTransform: ViewTransform, viewDim: ViewDimensions, canvasWidth: number, canvasHeight: number, extendLimitPercentage?: number): ViewTransform;

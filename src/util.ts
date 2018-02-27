@@ -112,7 +112,7 @@ export function getBoundedPinchTransform(oldTransform: ViewTransform, newTransfo
 
 export function getBoundedTouchTransform(
   initialTransform: ViewTransform, oldTransform: ViewTransform, newTransform: ViewTransform,
-  viewDim: ViewDimensions, canvasWidth: number, canvasHeight: number
+  viewDim: ViewDimensions, canvasWidth: number, canvasHeight: number, extendLimitPercentage?: number
 ): ViewTransform {
   let boundedTransform = { ...newTransform }
 
@@ -136,21 +136,22 @@ export function getBoundedTouchTransform(
     y: (canvasHeight - scaledCanvas.height) / 2
   }
 
-  const extendPercentage = 0.2
-  const extendLimit = (viewDim.width * extendPercentage)
+  const extendPercentage = extendLimitPercentage ? extendLimitPercentage : 0.2
+  const extendLimitX = (viewDim.width * extendPercentage)
+  const extendLimitY = (viewDim.height * extendPercentage)
 
   //Entire Canvas can be seen within the view
   if (scaledCanvas.width < viewDim.width &&
     scaledCanvas.height < viewDim.height) {
 
     maxBounds = {
-      x: (viewDim.width - scaledCanvas.width) + extendLimit - zoomDisplacement.x,
-      y: (viewDim.height - scaledCanvas.height) + extendLimit - zoomDisplacement.y
+      x: (viewDim.width - scaledCanvas.width) + extendLimitX - zoomDisplacement.x,
+      y: (viewDim.height - scaledCanvas.height) + extendLimitY - zoomDisplacement.y
     }
 
     minBounds = {
-      x: - zoomDisplacement.x - extendLimit,
-      y: - zoomDisplacement.y - extendLimit
+      x: - zoomDisplacement.x - extendLimitX,
+      y: - zoomDisplacement.y - extendLimitY
     }
 
     if (initialTransform.translateX > maxBounds.x) {
@@ -172,13 +173,13 @@ export function getBoundedTouchTransform(
   }
   else {
     maxBounds = {
-      x: viewDim.width - zoomDisplacement.x - extendLimit,
-      y: viewDim.height - zoomDisplacement.y - extendLimit
+      x: viewDim.width - zoomDisplacement.x - extendLimitX,
+      y: viewDim.height - zoomDisplacement.y - extendLimitY
     }
 
     minBounds = {
-      x: - zoomDisplacement.x - (scaledCanvas.width) + extendLimit,
-      y: - zoomDisplacement.y - (scaledCanvas.height) + extendLimit
+      x: - zoomDisplacement.x - (scaledCanvas.width) + extendLimitX,
+      y: - zoomDisplacement.y - (scaledCanvas.height) + extendLimitY
     }
   }
 

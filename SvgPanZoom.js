@@ -135,7 +135,7 @@ export default class SvgPanZoom extends Component {
                 return;
             }
             const { viewTransform, initialGestureState, initialTransform, viewDimensions } = this.state;
-            const { canvasWidth, canvasHeight } = this.props;
+            const { canvasWidth, canvasHeight, extendLimitPercentage } = this.props;
             /*gestureState holds total displacement since pan started.
               Here we calculate difference since last call of processTouch */
             const displacement = {
@@ -143,7 +143,7 @@ export default class SvgPanZoom extends Component {
                 y: (gestureState.dy - initialGestureState.dy) / viewTransform.scaleY,
             };
             const tranlationMatrix = createTranslationMatrix(displacement.x, displacement.y);
-            const newTransform = getBoundedTouchTransform(initialTransform, viewTransform, viewTransformMult(viewTransform, tranlationMatrix), viewDimensions, canvasWidth, canvasHeight);
+            const newTransform = getBoundedTouchTransform(initialTransform, viewTransform, viewTransformMult(viewTransform, tranlationMatrix), viewDimensions, canvasWidth, canvasHeight, extendLimitPercentage);
             Animated.timing(this.state.TranslationAnimation, {
                 toValue: {
                     x: newTransform.translateX,
